@@ -1,6 +1,6 @@
 # Privacy Policy - RYC (Rate Your Courses)
 
-**Last Updated**: January 2024
+**Last Updated**: January 2026
 
 ## Our Commitment to Privacy
 

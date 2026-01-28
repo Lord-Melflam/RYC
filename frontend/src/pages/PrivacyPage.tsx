@@ -75,7 +75,7 @@ export default function PrivacyPage() {
       </section>
 
       <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.6)' }}>
-        Last updated: January 2024
+        Last updated: January 2026
       </p>
     </div>
   );
