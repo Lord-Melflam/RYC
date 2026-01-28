@@ -11,31 +11,36 @@ function generateAnonymousId(): string {
 }
 
 // POST /api/reviews - Create a new review
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const { courseId, rating, difficulty, workload, comment, semester, year } = req.body;
     
     // Validation
     if (!courseId) {
-      return res.status(400).json({ error: 'courseId is required' });
+      res.status(400).json({ error: 'courseId is required' });
+      return;
     }
     
     if (!rating || rating < 1 || rating > 5) {
-      return res.status(400).json({ error: 'rating must be between 1 and 5' });
+      res.status(400).json({ error: 'rating must be between 1 and 5' });
+      return;
     }
     
     if (!difficulty || difficulty < 1 || difficulty > 5) {
-      return res.status(400).json({ error: 'difficulty must be between 1 and 5' });
+      res.status(400).json({ error: 'difficulty must be between 1 and 5' });
+      return;
     }
     
     if (!workload || workload < 1 || workload > 5) {
-      return res.status(400).json({ error: 'workload must be between 1 and 5' });
+      res.status(400).json({ error: 'workload must be between 1 and 5' });
+      return;
     }
     
     // Check if course exists
     const course = await prisma.course.findUnique({ where: { id: courseId } });
     if (!course) {
-      return res.status(404).json({ error: 'Course not found' });
+      res.status(404).json({ error: 'Course not found' });
+      return;
     }
     
     // Create review with privacy-first anonymous ID
@@ -65,18 +70,20 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 // POST /api/reviews/:id/flag - Flag a review for moderation
-router.post('/:id/flag', async (req: Request, res: Response) => {
+router.post('/:id/flag', async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     const { reason } = req.body;
     
     if (!reason) {
-      return res.status(400).json({ error: 'reason is required' });
+      res.status(400).json({ error: 'reason is required' });
+      return;
     }
     
     const review = await prisma.review.findUnique({ where: { id } });
     if (!review) {
-      return res.status(404).json({ error: 'Review not found' });
+      res.status(404).json({ error: 'Review not found' });
+      return;
     }
     
     // Create flag

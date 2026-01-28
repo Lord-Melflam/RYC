@@ -76,7 +76,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 // GET /api/courses/:id - Get a specific course with reviews
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
     
@@ -101,7 +101,8 @@ router.get('/:id', async (req: Request, res: Response) => {
     });
     
     if (!course) {
-      return res.status(404).json({ error: 'Course not found' });
+      res.status(404).json({ error: 'Course not found' });
+      return;
     }
     
     res.json(course);

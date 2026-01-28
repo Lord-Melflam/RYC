@@ -1,7 +1,5 @@
 import { Course, CourseDetail, ReviewInput } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
-
 export async function fetchCourses(params?: { department?: string; search?: string }): Promise<Course[]> {
   const queryParams = new URLSearchParams();
   if (params?.department) queryParams.append('department', params.department);
